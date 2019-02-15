@@ -28,6 +28,10 @@ keyboard title: "Custom mappings with layers" do
       ["i", "8"],
       ["o", "8"],
       ["p", "0"],
+      ["h", "left_arrow"],
+      ["j", "down_arrow"],
+      ["k", "up_arrow"],
+      ["l", "right_arrow"],
     ].each do |pair|
       mapping do
         from key: pair[0]
