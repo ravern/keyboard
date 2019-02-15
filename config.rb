@@ -1,5 +1,5 @@
 keyboard do
-  layer :normal, desc: "Basic typing and most punctuation" do
+  layer :normal, title: "Basic typing and most punctuation" do
     mapping do
       from key: ['a', 's']
       to mode: :numbers
@@ -11,7 +11,7 @@ keyboard do
     end
   end
 
-  layer :numbers, desc: "Numbers and some additional punctutation" do
+  layer :numbers, title: "Numbers and some additional punctutation" do
     mapping do
       from key: ['a', 's']
       to mode: :normal
