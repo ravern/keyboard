@@ -7,12 +7,29 @@ class Mapping
     @to = to
   end
 
-  def build(layer)
+  def build(layer, once)
     {
       type: "basic",
       from: build_from,
-      conditions: build_conditions(layer),
-      to: build_to,
+      conditions: build_conditions(layer, once),
+      to: build_to + if once == 1
+        [
+          {
+            set_variable: {
+              name: "layer",
+              value: 0,
+            },
+          },
+          {
+            set_variable: {
+              name: "once",
+              value: 0,
+            },
+          },
+        ]
+      else
+        []
+      end,
     }
   end
 
@@ -48,12 +65,17 @@ class Mapping
     end
   end
 
-  def build_conditions(layer)
+  def build_conditions(layer, once)
     [
       {
         type: "variable_if",
-        name: "custom_mode",
+        name: "layer",
         value: layer,
+      },
+      {
+        type: "variable_if",
+        name: "once",
+        value: once,
       },
     ]
   end
@@ -63,8 +85,8 @@ class Mapping
       [build_to_key(@to[:key])]
     elsif @to[:keys]
       @to[:keys].map { |key| build_to_key(key) }
-    elsif @to[:mode]
-      [build_to_mode(@to[:mode])]
+    elsif @to[:layer]
+      build_to_layer(@to[:layer])
     end
   end
 
@@ -90,25 +112,33 @@ class Mapping
     end
   end
 
-  def build_to_mode(mode)
-    if mode.kind_of?(Array)
-      if mode[1] == :once
-        {
-          set_variable: {
-            name: "custom_mode",
-            value: mode,
+  def build_to_layer(layer)
+    if layer.kind_of?(Array)
+      if layer[1] == :once
+        [
+          {
+            set_variable: {
+              name: "layer",
+              value: layer[0],
+            },
           },
-        }
+          {
+            set_variable: {
+              name: "once",
+              value: 1,
+            },
+          },
+        ]
       else
         raise ArgumentError()
       end
     else
-      {
+      [{
         set_variable: {
-          name: "custom_mode",
-          value: mode,
+          name: "layer",
+          value: layer,
         },
-      }
+      }]
     end
   end
 end
@@ -132,7 +162,9 @@ class Layer
   def build(layer)
     {
       description: @desc,
-      manipulators: @mappings.map { |mapping| mapping.build(layer) },
+      manipulators: @mappings.map do |mapping|
+        [mapping.build(layer, 0), mapping.build(layer, 1)]
+      end.flatten,
     }
   end
 end
@@ -183,7 +215,13 @@ RESET_LAYER = {
       to: [
         {
           set_variable: {
-            name: "custom_mode",
+            name: "layer",
+            value: 0,
+          },
+        },
+        {
+          set_variable: {
+            name: "once",
             value: 0,
           },
         },
