@@ -39,7 +39,7 @@ keyboard title: "Custom mappings with layers" do
       ["i", "8"],
       ["o", "9"],
       ["p", "0"],
-      ["a", ""],
+      ["a", "grave_accent_and_tilde"],
       ["s", ""],
       ["d", ""],
       ["f", ""],
