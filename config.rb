@@ -1,12 +1,12 @@
 keyboard title: "Custom mappings with layers" do
   layer desc: "Basic typing and most punctuation" do
     mapping do
-      from keys: ["a", "s"]
+      from keys: ["s", "d", "f"]
       to layer: 1
     end
 
     mapping do
-      from keys: ["d", "f"]
+      from keys: ["w", "e", "r"]
       to layer: [1, :once]
     end
 
@@ -24,7 +24,7 @@ keyboard title: "Custom mappings with layers" do
 
   layer desc: "Numbers and some additional punctutation" do
     mapping do
-      from keys: ["a", "s"]
+      from keys: ["s", "d", "f"]
       to layer: 0
     end
 
@@ -91,6 +91,8 @@ keyboard title: "Custom mappings with layers" do
       ["i", ["left_control", "8"]],
       ["o", ["left_control", "9"]],
       ["p", ["left_control", "0"]],
+      ["v", ["left_control", "left_arrow"]],
+      ["b", ["left_control", "right_arrow"]],
     ].each do |pair|
       mapping do
         from key: pair[0]
