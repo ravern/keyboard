@@ -93,6 +93,11 @@ keyboard title: "Custom mappings with layers" do
       ["p", ["left_control", "0"]],
       ["v", ["left_control", "left_arrow"]],
       ["b", ["left_control", "right_arrow"]],
+      ["a", "f9"],
+      ["s", "f11"],
+      ["d", "mute"],
+      ["f", "volume_decrement"],
+      ["g", "volume_increment"],
     ].each do |pair|
       mapping do
         from key: pair[0]
