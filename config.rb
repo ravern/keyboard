@@ -11,7 +11,12 @@ keyboard title: "Custom mappings with layers" do
     end
 
     mapping do
-      from keys: ["n", "m"]
+      from keys: ["j", "k", "l"]
+      to layer: 2
+    end
+
+    mapping do
+      from keys: ["u", "i", "o"]
       to layer: [2, :once]
     end
 
@@ -76,7 +81,7 @@ keyboard title: "Custom mappings with layers" do
 
   layer desc: "Utilities like changing desktop, etc." do
     mapping do
-      from keys: ["n", "m"]
+      from keys: ["j", "k", "l"]
       to layer: 0
     end
 
@@ -91,13 +96,22 @@ keyboard title: "Custom mappings with layers" do
       ["i", ["left_control", "8"]],
       ["o", ["left_control", "9"]],
       ["p", ["left_control", "0"]],
-      ["v", ["left_control", "left_arrow"]],
-      ["b", ["left_control", "right_arrow"]],
       ["a", "f9"],
       ["s", "f11"],
       ["d", "mute"],
       ["f", "volume_decrement"],
       ["g", "volume_increment"],
+      ["h", ""],
+      ["j", ""],
+      ["k", ""],
+      ["l", ""],
+      ["z", ["left_control", "left_arrow"]],
+      ["x", ["left_control", "right_arrow"]],
+      ["c", ""],
+      ["v", ""],
+      ["b", ""],
+      ["n", ""],
+      ["m", ""],
     ].each do |pair|
       mapping do
         from key: pair[0]
