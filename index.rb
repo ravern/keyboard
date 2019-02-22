@@ -12,24 +12,7 @@ class Mapping
       type: "basic",
       from: build_from,
       conditions: build_conditions(layer, once),
-      to: build_to + if once == 1
-        [
-          {
-            set_variable: {
-              name: "layer",
-              value: 0,
-            },
-          },
-          {
-            set_variable: {
-              name: "once",
-              value: 0,
-            },
-          },
-        ]
-      else
-        []
-      end,
+      to: build_to(once),
     }
   end
 
@@ -94,14 +77,34 @@ class Mapping
     ]
   end
 
-  def build_to
+  def build_to(once)
     if @to[:key]
-      [build_to_key(@to[:key])]
+      to = [build_to_key(@to[:key])]
     elsif @to[:keys]
-      @to[:keys].map { |key| build_to_key(key) }
+      to = @to[:keys].map { |key| build_to_key(key) }
     elsif @to[:layer]
-      build_to_layer(@to[:layer])
+      to = build_to_layer(@to[:layer])
     end
+
+    # Set the layer back to 0 if once is set.
+    if once == 1
+      to += [
+        {
+          set_variable: {
+            name: "layer",
+            value: 0,
+          },
+        },
+        {
+          set_variable: {
+            name: "once",
+            value: 0,
+          },
+        },
+      ]
+    end
+
+    to
   end
 
   def build_to_key(key)
