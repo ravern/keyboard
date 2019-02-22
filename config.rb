@@ -20,10 +20,9 @@ keyboard title: "Custom mappings with layers" do
       to layer: [2, :once]
     end
 
-    # Temporary to learn backspace.
     mapping do
-      from key: ["left_control", "h"]
-      to layer: 0
+      from keys: ["z", "x"]
+      to key: "d"
     end
   end
 
@@ -70,12 +69,6 @@ keyboard title: "Custom mappings with layers" do
         from key: pair[0]
         to key: pair[1]
       end
-    end
-
-    # Temporary to learn backspace.
-    mapping do
-      from key: ["left_control", "h"]
-      to layer: 1
     end
   end
 

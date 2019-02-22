@@ -39,7 +39,7 @@ class Mapping
     if @from[:key]
       build_from_key(@from[:key])
     elsif @from[:keys]
-      { simultaneous: @from[:keys].map { |key| build_from_key(key) } }
+      build_from_keys(@from[:keys])
     end
   end
 
@@ -52,6 +52,20 @@ class Mapping
     else
       {
         key_code: key,
+        modifiers: { optional: ["any"] },
+      }
+    end
+  end
+
+  def build_from_keys(keys)
+    if keys.size > 1 && keys[1].kind_of?(Array)
+      {
+        simultaneous: keys[0].map { |key| { key_code: key } },
+        modifiers: { mandatory: build_from_key_mods(keys[0]) },
+      }
+    else
+      {
+        simultaneous: keys.map { |key| { key_code: key } },
         modifiers: { optional: ["any"] },
       }
     end
